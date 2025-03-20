@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<a class="btn btn-secondary btn-lg" asp-controller="Product"  asp-action="Create">
+    <i class="bi bi-plus-circle-dotted"></i>
+    Add Product
+</a>
+
+@if (!Model.Any())
+{
+    <div class="alert  alert-warning mt-5">
+        <h4 class="alert-heading">No Products Yet!</h4>
+        <p class="mb-0"> No Products Were Added Yet!.</p>
+    </div>
+}
+
+else
+{
+    <div class="row mt-5">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+                <a class="card border-info mb-3 text-decoration-none rounded-3 overflow-hidden " style="max-width: 20rem;" asp-action="Create" asp-controller="Transaction" asp-route-id="@product.Id">
+                    <div class="card-body" style="background-image : url(@($"{FileSetting.imagesFolder}/{product.Image}")) ; background-size : cover ; background-position: center ; height: 400px;">
+                        <div class="h-100">
+                            <span class="badge bg-secondary rounded-0">@product.ProductName</span>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted d-flex  justify-content-between align-items-center">
+                        <h5>@product.ProductName</h5>
+                        <h5> @product.Price$</h5>
+                    </div>
+                   
+                </a>
+                
+            </div>
+
+        }
+    </div>
+
+}
+
+

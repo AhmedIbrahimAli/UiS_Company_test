@@ -56,6 +56,25 @@ namespace UiS_Company_test.Services
             
         }
 
+
+        public  void Edit(Transaction model)
+        {
+            var transaction = _context.Transactions
+                .Include(g => g.Products)
+                .FirstOrDefault(g => g.Id == model.Id);
+
+            if (transaction is not null)
+            {
+                transaction.Product_Name = model.Product_Name;
+                transaction.Quantity = model.Quantity;
+                transaction.Unit = model.Unit;
+                transaction.Total_Price = model.Total_Price;
+                transaction.Date = model.Date;
+
+                _context.SaveChanges();
+            }
+        }
+
         public bool Delete(int Id )
         {
             bool isDeleted = false;
@@ -66,17 +85,12 @@ namespace UiS_Company_test.Services
 
             _context.Transactions.Remove(transaction);
 
-            var effectedRows = _context.SaveChanges();
+            _context.SaveChanges();
 
-            if (effectedRows > 0)
-            {
-                isDeleted = true;
-                var cover = Path.Combine(_imgPath, transaction.Image!);
-                File.Delete(cover);
-            }
+            
             return isDeleted;
         }
 
-       
+        
     }
 }

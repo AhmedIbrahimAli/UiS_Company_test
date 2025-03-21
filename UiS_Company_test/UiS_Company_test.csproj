@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\Images\Products\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

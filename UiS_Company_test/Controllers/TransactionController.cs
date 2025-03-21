@@ -46,13 +46,33 @@ namespace UiS_Company_test.Controllers
         {
             if (ModelState.IsValid)
             {
-                 _transactionServices.Create(model);
+                _transactionServices.Create(model);
+                ViewData["price"] = model.Price;
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
         }
 
 
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var transaction = _transactionServices.GetById(Id);
+            if (transaction == null)
+                return NotFound();
+
+            return View(transaction);
+        }
+        [HttpPost]
+        public IActionResult Edit(Transaction transaction)
+        {
+            if (transaction == null)
+                return BadRequest();
+
+            _transactionServices.Edit(transaction);
+
+            return RedirectToAction(nameof(Index));
+        }
 
         [HttpDelete]
         public bool Delete(int Id)

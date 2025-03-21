@@ -1,9 +1,9 @@
-﻿@model CreateTransaction_ViewModel
+﻿@model Transaction
 @{
-    ViewData["Title"] = "Create";
-    var Total_Price = Model.Price * Model.Quantity;
-    if (Total_Price == 0)
-        Total_Price = Model.Price * Model.InitialQuantity;
+
+    ViewData["Title"] = "Edit";
+    var price = ViewData["price"] as float?;
+
 }
 
 <div class="card border-success rounded-4 mt-5 overflow-hidden">
@@ -12,20 +12,18 @@
             <div class="col-md-8 px-5 py-4 d-flex flex-column justify-content-between">
                 <div>
                     <h1 class="text-success fw-bolder">Product Name : @Model.Product_Name</h1>
-                     <span class="badge bg-info fs-5 mb-4">Unit : @Model.Unit</span>
-                    
+                    <span class="badge bg-info fs-5 mb-4">Unit : @Model.Unit</span>
+
                 </div>
-                <form asp-controller="Transaction" asp-action="Create" enctype="multipart/form-data">
+                <form asp-controller="Transaction" asp-action="Edit" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
 
                             <input asp-for="Product_Name" type="hidden" class="form-control" value="@Model.Product_Name" />
                             <input asp-for="Image" type="hidden" class="form-control" value="@Model.Image" />
-                            <input asp-for="InitialQuantity" type="hidden" class="form-control" value="@Model.InitialQuantity" />
                             <input asp-for="Unit" type="hidden" class="form-control" value="@Model.Unit" />
-                            <input asp-for="Price" type="hidden" class="form-control" value="@Model.Price" />
-                            <input asp-for="Total_Price" type="hidden" id="totalAsp" class="form-control" value="@Total_Price" />
-            
+                            <input asp-for="Total_Price" type="hidden" id="totalAsp_edit" class="form-control" value="@Model.Total_Price" />
+
                             <div>
                                 <label asp-for="Quantity" class="control-label"></label>
                                 <input asp-for="Quantity" class="form-control" id="quantity" placeholder="Enter Quantity" />
@@ -37,13 +35,13 @@
                                 <span asp-validation-for="Date" class="text-danger"></span>
                             </div>
 
-                            <p class="fs-5 mt-4" id="total">Total Prise = @Total_Price</p>
+                            <p class="fs-5 mt-4" id="total_edit">Total Prise = @Model.Total_Price</p>
 
                             <div>
-                                <input type="submit" value="Make Transaction" class="btn btn-light text-black mt-4" />
+                                <input type="submit" value="Update Transaction" class="btn btn-light text-black mt-4" />
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </form>
@@ -58,7 +56,6 @@
         </div>
     </div>
 </div>
-
 @section Scripts{
     <script >
         $(document).ready(function () {
@@ -66,11 +63,11 @@
             $('#quantity').on('input', function () {
                 // Read the value from the input field
                 let inputValue = $(this).val();
-                let total = inputValue * @Model.Price
+                let total = inputValue * 10
 
                 // Update the value in the target element
-                $('#total').text('Total Price : '+total);
-                $('#totalAsp').val(total);
+                $('#total_edit').text('Total Price : '+total);
+                $('#totalAsp_edit').val(total);
             });
         });
 </script>

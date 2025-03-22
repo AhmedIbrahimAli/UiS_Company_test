@@ -15,9 +15,14 @@ namespace UiS_Company_test.Controllers
             _transactionServices = transactionServices;
             _productServices = productServices;
         }
-        public IActionResult Index()
+        public IActionResult Index(DateTime? filterDate)
         {
             var Transactions = _transactionServices.GetAll();
+
+            if (filterDate.HasValue)
+            {
+                Transactions = Transactions.Where(t => t.Date.Date == filterDate.Value.Date);
+            }
 
             return View(Transactions);
         }

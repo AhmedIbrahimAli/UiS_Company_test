@@ -26,8 +26,8 @@ namespace UiS_Company_test.Services
         {
             return _context.Transactions
                 .Include(g => g.Products)
-                .AsNoTracking ()
-                .ToList ();
+                .AsNoTracking()
+                .AsQueryable();
         }
 
         public Transaction? GetById(int id)

@@ -13,6 +13,18 @@
 
 else
 {
+    <form method="get" asp-action="Index">
+        <div class="form-group">
+            <label for="filterDate">Filter by Date</label>
+            <input type="date" id="filterDate" name="filterDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </div>
+    </form>
+
+
+
     <div class="mt-5">
         <table class="table table-bordered border-primary">
             <tbody>
